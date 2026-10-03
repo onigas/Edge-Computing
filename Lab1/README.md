@@ -93,5 +93,10 @@ ip -4 addr show eth0
 
 ## Taskuri Lab1
 
-- [Lab1.1 — Verificarea mediului PYNQ](./Lab1.1.ipynb)
-- [Lab1.2 — Primul Overlay PYNQ și controlul LED-urilor](./Lab1.2.ipynb)
+| Notebook | Activitate principală |
+|---|---|
+| [Lab1.1.ipynb](./Lab1.1.ipynb) | Verificarea mediului PYNQ |
+| [Lab1.2.ipynb](./Lab1.2.ipynb) | Încărcarea Base Overlay și controlul LED-urilor |
+| [Lab1.3.ipynb](./Lab1.3.ipynb) | Citirea switch-urilor și controlul LED-urilor |
+| [Lab1.4.ipynb](./Lab1.4.ipynb) | Citirea butoanelor |
+| [Lab1.5.ipynb](./Lab1.5.ipynb) | Contor binar pe 4 biți controlat cu butoane |
