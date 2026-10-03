@@ -83,14 +83,14 @@ Pentru primele laboratoare nu sunt necesare componente externe.
 
 ## Lab2 — PS–PL, AXI și MMIO
 
-Direcția laboratorului:
+[Deschide Lab2](./Lab2/README.md)
 
-- explorarea structurii unui Overlay;
-- identificarea IP-urilor din PL;
-- AXI GPIO;
-- acces la registre prin AXI-Lite;
-- utilizarea MMIO din Python;
-- comparație între API-ul PYNQ și accesul direct la registre.
+| Notebook | Activitate principală |
+|---|---|
+| [Lab2.1.ipynb](./Lab2/Lab2.1.ipynb) | Explorarea Overlay-ului și a `ip_dict` |
+| [Lab2.2.ipynb](./Lab2/Lab2.2.ipynb) | Acces la AXI GPIO prin driverul PYNQ |
+| [Lab2.3.ipynb](./Lab2/Lab2.3.ipynb) | Acces direct la registre cu MMIO |
+| [Lab2.4.ipynb](./Lab2/Lab2.4.ipynb) | Comparație API PYNQ vs AxiGPIO vs MMIO |
 
 ---
 
