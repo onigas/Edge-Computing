@@ -94,3 +94,4 @@ ip -4 addr show eth0
 ## Taskuri Lab1
 
 - [Lab1.1 — Verificarea mediului PYNQ](./Lab1.1.ipynb)
+- [Lab1.2 — Primul Overlay PYNQ și controlul LED-urilor](./Lab1.2.ipynb)
