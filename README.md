@@ -96,14 +96,15 @@ Pentru primele laboratoare nu sunt necesare componente externe.
 
 ## Lab3 — Buffere și AXI DMA
 
-Direcția laboratorului:
+[Deschide Lab3](./Lab3/README.md)
 
-- `pynq.allocate()`;
-- buffere accesibile PS și PL;
-- AXI4-Stream;
-- transfer PS → PL → PS;
-- DMA loopback;
-- măsurarea latenței și throughput-ului.
+| Notebook | Activitate principală |
+|---|---|
+| [Lab3.1.ipynb](./Lab3/Lab3.1.ipynb) | `pynq.allocate()` și buffere pentru PS–PL |
+| [Lab3.2.ipynb](./Lab3/Lab3.2.ipynb) | AXI4-Stream și pregătirea Overlay-ului DMA |
+| [Lab3.3.ipynb](./Lab3/Lab3.3.ipynb) | DMA loopback: PS → PL → PS |
+| [Lab3.4.ipynb](./Lab3/Lab3.4.ipynb) | Transferuri cu dimensiuni diferite |
+| [Lab3.5.ipynb](./Lab3/Lab3.5.ipynb) | Benchmark: latență și throughput |
 
 ---
 
