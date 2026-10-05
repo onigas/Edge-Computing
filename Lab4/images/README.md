@@ -3,16 +3,17 @@
 Lab4 uses:
 
 ```text
-opencv_filters.jpg
+fruits.jpg
 ```
 
 Source:
 
 ```text
-onigas/PYNQ
-boards/Pynq-Z1/base/notebooks/video/data/opencv_filters.jpg
+OpenCV repository
+samples/data/fruits.jpg
+branch: 4.x
 ```
 
-The notebooks download the image automatically when Internet access is available.
+The image is stored directly in this directory so the laboratory does not depend on Internet access during execution.
 
-For offline use, copy the image manually into this directory.
+It is used as a common input image for grayscale conversion, resize, Sobel edge detection and the ARM software benchmark.
