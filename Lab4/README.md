@@ -29,13 +29,15 @@ timp de execuție / FPS
 
 ## Imagine de test
 
-Notebook-urile utilizează imaginea `opencv_filters.jpg` existentă în repository-ul `onigas/PYNQ`.
+Notebook-urile utilizează imaginea color **`fruits.jpg`** din setul de exemple OpenCV.
 
-Dacă imaginea nu există local, notebook-ul încearcă să o descarce automat. Pentru utilizare offline, copiați imaginea în:
+Fișierul este inclus direct în repository:
 
 ```text
-Lab4/images/opencv_filters.jpg
+Lab4/images/fruits.jpg
 ```
+
+Imaginea conține obiecte colorate, muchii, forme și texturi variate, fiind potrivită pentru exercițiile de grayscale, resize și Sobel.
 
 ## Taskuri Lab4
 
