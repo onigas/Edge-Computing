@@ -110,15 +110,15 @@ Pentru primele laboratoare nu sunt necesare componente externe.
 
 ## Lab4 — Prelucrare de imagine în software
 
-Direcția laboratorului:
+[Deschide Lab4](./Lab4/README.md)
 
-- reprezentarea imaginilor în memorie;
-- NumPy / OpenCV;
-- grayscale;
-- resize;
-- filtre și Sobel;
-- măsurarea timpului de execuție și FPS;
-- stabilirea unui baseline software pentru comparația cu FPGA.
+| Notebook | Activitate principală |
+|---|---|
+| [Lab4.1.ipynb](./Lab4/Lab4.1.ipynb) | Reprezentarea imaginilor cu NumPy și OpenCV |
+| [Lab4.2.ipynb](./Lab4/Lab4.2.ipynb) | Conversie color → grayscale |
+| [Lab4.3.ipynb](./Lab4/Lab4.3.ipynb) | Resize în software |
+| [Lab4.4.ipynb](./Lab4/Lab4.4.ipynb) | Detecția muchiilor cu Sobel |
+| [Lab4.5.ipynb](./Lab4/Lab4.5.ipynb) | Benchmark software pe ARM |
 
 ---
 
