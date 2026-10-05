@@ -47,7 +47,11 @@ Laboratoarele sunt dezvoltate pentru:
 - ARM Cortex-A9 în **Processing System (PS)**
 - logică FPGA în **Programmable Logic (PL)**
 - Linux + Python + Jupyter
-- PYNQ 3.x
+- **PYNQ 2.7.0**
+
+Imaginea recomandată pentru placa **PYNQ-Z2**:
+
+➡️ [Descarcă imaginea PYNQ-Z2 v2.7.0](https://bit.ly/pynqz2_2_7)
 
 Pentru primele laboratoare nu sunt necesare componente externe.
 
