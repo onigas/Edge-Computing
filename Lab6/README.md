@@ -86,3 +86,5 @@ Pentru detalii despre implementarea reală în FPGA consultați [specificația h
 
 - PYNQ-HelloWorld (accelerator Resize): https://github.com/Xilinx/PYNQ-HelloWorld
 - PYNQ Composable Pipeline (exemple de conexiuni streaming, nu același overlay Resize → Sobel): https://github.com/Xilinx/PYNQ_Composable_Pipeline
+
+**Test hardware real:** [Lab6.2_FPGA.ipynb](Lab6.2_FPGA.ipynb) — validează pe PYNQ-Z2 overlay-ul `resize_sobel.bit` / `resize_sobel.hwh` (test sintetic și benchmark). Acesta este un notebook suplimentar și nu înlocuiește Lab6.2.
