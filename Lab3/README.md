@@ -59,6 +59,11 @@ Lab3/bitstream/
 | [Lab3.4.ipynb](./Lab3.4.ipynb) | Transferuri cu dimensiuni diferite |
 | [Lab3.5.ipynb](./Lab3.5.ipynb) | Benchmark: latență și throughput |
 
+## Concepte-cheie
+
+- **Latență** — timpul necesar pentru finalizarea unui transfer, de la lansare până la terminare; se exprimă de obicei în µs sau ms.
+- **Throughput** — cantitatea de date transferată într-o unitate de timp; în acest laborator este exprimată în MB/s.
+
 ## Rezultatul laboratorului
 
 La final, studentul trebuie să poată explica și măsura traseul:
