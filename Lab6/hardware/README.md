@@ -4,6 +4,15 @@
 
 Overlay-ul din Lab5 implementează doar Resize. Nu poate fi utilizat drept overlay **Resize → Sobel** fără refacerea și verificarea proiectului FPGA.
 
+## Etapa curentă — pregătirea Resize pentru Vitis 2022.2
+
+Am pregătit [sursele și testbench-ul Resize](resize_hls/README.md) în
+`Lab6/hardware/resize_hls/`. Prima verificare se face prin **C Simulation**
+în Vitis HLS 2022.2 pe PC, înainte de sinteza IP-ului și înainte de
+integrarea Sobel în Vivado. Fișierele nu sunt încă validate prin sinteză.
+
+---
+
 ## 1. Arhitectura urmărită
 
 ```text
