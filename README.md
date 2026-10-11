@@ -142,15 +142,17 @@ Pentru primele laboratoare nu sunt necesare componente externe.
 
 ## Lab6 — Pipeline streaming și procesare video Edge
 
-Direcția laboratorului:
+[Deschide Lab6](./Lab6/README.md)
 
-- procesare în flux;
-- pipeline-uri hardware;
-- Resize → Sobel;
-- reducerea acceselor intermediare la DDR;
-- procesare video;
-- latență end-to-end;
-- throughput și FPS.
+Lab6 este organizat în **trei notebook-uri integrate**:
+
+| Notebook | Activitate principală |
+|---|---|
+| [Lab6.1.ipynb](./Lab6/Lab6.1.ipynb) | Resize → Sobel pe ARM vs Resize în PL + Sobel pe ARM; corectitudine și benchmark |
+| [Lab6.2.ipynb](./Lab6/Lab6.2.ipynb) | AXI4-Stream, buffer de linii Sobel, comparația traficului DDR secvențial vs streaming |
+| [Lab6.3.ipynb](./Lab6/Lab6.3.ipynb) | Procesare video și măsurarea latenței end-to-end, throughput-ului și FPS-ului |
+
+**Stadiu hardware:** Lab6.1 și Lab6.3 refolosesc acceleratorul Resize verificat din Lab5. Lab6.2 include un model funcțional de procesare în flux și analiza arhitecturii; pipeline-ul complet Resize → Sobel în PL necesită un overlay nou, cu fișiere bit/hwh validate. Modelele Python și estimările DDR nu sunt prezentate ca benchmark FPGA.
 
 ---
 
