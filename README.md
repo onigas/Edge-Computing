@@ -128,14 +128,15 @@ Pentru primele laboratoare nu sunt necesare componente externe.
 
 ## Lab5 — Accelerarea hardware a procesării de imagine
 
-Direcția laboratorului:
+[Deschide Lab5](./Lab5/README.md)
 
-- încărcarea unui Overlay cu accelerator;
-- transferul imaginilor prin DMA;
-- resize și/sau Sobel în PL;
-- măsurarea timpului de execuție;
-- comparație CPU vs FPGA;
-- calculul speed-up-ului.
+| Notebook | Activitate principală |
+|---|---|
+| [Lab5.1.ipynb](./Lab5/Lab5.1.ipynb) | Arhitectura acceleratorului și inspectarea Overlay-ului |
+| [Lab5.2.ipynb](./Lab5/Lab5.2.ipynb) | Primul resize executat în PL |
+| [Lab5.3.ipynb](./Lab5/Lab5.3.ipynb) | Comparația rezultatului CPU vs PL |
+| [Lab5.4.ipynb](./Lab5/Lab5.4.ipynb) | Descompunerea timpului: copie, DMA și accelerator |
+| [Lab5.5.ipynb](./Lab5/Lab5.5.ipynb) | Benchmark CPU vs FPGA și calculul speed-up-ului |
 
 ---
 
