@@ -1,128 +1,97 @@
-# Lab6.2 — Hardware implementation specification (PYNQ-Z2)
+# Lab6.2 — Specificația implementării hardware pe PYNQ-Z2
 
-**Status: design specification, not a validated bitstream.**
+**Stadiu:** document de proiectare. Nu există încă un bitstream validat pentru arhitectura completă.
 
-This document is the engineering companion to Lab6.2.ipynb. The current
-Lab5 resizer overlay is verified for Resize, but it **cannot** be loaded
-as a fused Resize→Sobel overlay. Do not distribute speculative bit/hwh
-files to students.
+Overlay-ul din Lab5 implementează doar Resize. Nu poate fi utilizat drept overlay **Resize → Sobel** fără refacerea și verificarea proiectului FPGA.
 
-## Required architecture
+## 1. Arhitectura urmărită
 
 ```text
-     Zynq PS (Python / PYNQ, DDR)
-              |
-         AXI4-MM (HP)
-              |
-         AXI DMA MM2S
-              |
-          AXI4-Stream
-              |
-       Resize (HLS IP)
-              |
-       Pixel format check
-              |
-       RGB/BGR to Grayscale
-              |
-       Sobel 3x3 with line buffers
-              |
-          AXI4-Stream
-              |
-          AXI DMA S2MM
-              |
-         AXI4-MM (HP)
-              |
-       DDR output (uint8)
+         Zynq PS / Python / DDR
+                   |
+              AXI4-MM (HP)
+                   |
+              AXI DMA MM2S
+                   |
+               AXI4-Stream
+                   |
+              Resize (HLS)
+                   |
+           Conversie BGR/RGB
+             la grayscale
+                   |
+          Sobel 3×3 + linii
+                   |
+               AXI4-Stream
+                   |
+              AXI DMA S2MM
+                   |
+              AXI4-MM (HP)
+                   |
+           Rezultat în DDR
 ```
 
-AXI-Lite carries *control* (image dimensions, start, status).
-AXI4-Stream carries *pixels*. AXI4-MM/HP connects DMA to DDR.
-An AXI clock and reset domain should be verified end-to-end.
+**AXI-Lite** configurează registrele (dimensiuni, pornire, stare).
+**AXI4-Stream** transportă pixelii între IP-uri.
+**AXI4-MM**, prin interfața HP, permite accesul DMA la DDR.
 
-## Prerequisite: inspect the proven Resize IP
+Trebuie verificate domeniile de ceas, semnalele de reset și comunicația dintre blocuri.
 
-Before modifying its design, examine the actual Lab5 resizer HWH and
-its top-level HDL/HLS signature:
+## 2. Ce trebuie verificat în IP-ul Resize existent
 
-1. Input and output stream data widths and packing
-2. Control register map and src/dst dimensions
-3. TLAST/TUSER/TKEEP semantics
-4. Pixels or bytes per AXI beat and DMA transfer lengths
-5. Pixel ordering (BGR vs RGB) and image alignment
-6. Whether the IP supports AXI4-Stream backpressure correctly
+Înainte de proiectarea noului overlay analizăm fișierul HWH al acceleratorului și interfața sa HLS/RTL:
 
-**Never assume:** 24-bit BGR input implies 24-bit AXI TDATA, or that
-TLAST always denotes the last pixel of a frame. AXI4-Stream Video
-usually uses TLAST at line end, while DMA simple mode deals in
-packets; any required bridging must be designed.
+1. Lățimea efectivă `TDATA` la intrare și la ieșire.
+2. Ordinea canalelor BGR sau RGB și formatul pixelilor.
+3. Registrele de control și dimensiunile `src_rows`, `src_cols`, `dst_rows`, `dst_cols`.
+4. Semnificația `TLAST`, `TUSER`, `TKEEP`.
+5. Lungimea transferurilor DMA și delimitarea pachetelor.
+6. Comportamentul în condiții de backpressure (`TVALID/TREADY`).
 
-## Sobel kernel reference specification
+Nu presupunem că o imagine BGR de 24 biți implică automat o magistrală AXI-Stream de 24 biți. În AXI4-Stream Video, `TLAST` marchează frecvent sfârșitul liniei, iar tratarea sa trebuie corelată cu DMA-ul.
 
-For **numerical comparability** with Lab4/Lab6:
+## 3. Definiția algoritmului Sobel
 
-- Convert the resized 3-channel image to uint8 grayscale.
-- Apply 3x3 Sobel coefficients for Gx and Gy.
-- Define and document **boundary handling** explicitly.
-- Magnitude = sqrt(Gx^2 + Gy^2), saturate and round to uint8.
+Pentru o comparație numerică riguroasă cu Lab4 și Lab6:
 
-The notebook's 3-line model uses BORDER_CONSTANT; the standard
-Lab4 software helper uses OpenCV's default border unless explicitly
-overridden. The hardware reference must use the SAME boundary policy.
+- Imagine de intrare grayscale uint8.
+- Nuclee Sobel 3×3 pentru gradientele `Gx` și `Gy`.
+- Politică explicită pentru pixelii de la margini.
+- Magnitudine `sqrt(Gx² + Gy²)`, rotunjire și saturare la uint8.
 
-Possible hardware optimizations (L1 magnitude |Gx|+|Gy|, shift-based
-approximations, thresholded edges) **change the numerical algorithm**.
-Report numerical errors and do not call them an identical operation.
+**Important:** în Lab6.2 modelul cu trei linii folosește `BORDER_CONSTANT`, iar funcția software standard din Lab4 folosește, implicit, politica de margini OpenCV. La verificare trebuie selectată aceeași politică pentru ambele trasee.
 
-A Sobel 3x3 streaming core requires a neighborhood window and one/two
-stored prior scan lines depending on the chosen line-buffer
-architecture. BRAM estimates depend on pixel width and maximum image
-width, not on complete frame height.
+Înlocuirea magnitudinii L2 cu `|Gx| + |Gy|`, cuantizarea diferită sau pragurile binare schimbă algoritmul. Aceste variante sunt posibile, dar trebuie cuantificate diferențele.
 
-## Vivado / Vitis 2022.2 implementation checklist
+## 4. Pași de implementare în Vivado/Vitis 2022.2
 
-1. Reuse or rebuild the *working* 2022.2-compatible Resize HLS IP.
-2. Define a grayscale and Sobel hardware function with explicit
-   AXI4-Stream types and line buffering (RTL or Vitis HLS).
-3. Write **unit testbenches** for 1x1, 3x3, maximum-size and border
-   frames; check no data loss under backpressure.
-4. Construct the Vivado block design with AXI DMA, suitable memory
-   interconnect, AXI-Lite control, clock/reset and stream conversion.
-5. Validate packet boundaries, TLAST/TUSER, TKEEP and output DMA byte
-   count. Incorrect framing can cause DMA wait() to hang.
-6. Run synthesis and implementation; check utilization and timing
-   closure (LUT/FF/BRAM/DSP, achievable clock).
-7. Export both matching artifacts to Lab6/overlay:
-   **resize_sobel.bit** and **resize_sobel.hwh**.
-8. Inspect the overlay from PYNQ: list DMA/IP and addresses from
-   overlay.ip_dict, without hard-coded physical addresses.
-9. Verify an image and numerical error **before** benchmarking.
-10. Measure kernel+DMA, full processing path, then video end-to-end FPS.
+1. Identificăm sursa HLS Resize compatibilă cu Vivado/Vitis 2022.2.
+2. Proiectăm conversia grayscale și nucleul Sobel cu fereastră 3×3 și buffere de linii.
+3. Scriem teste unitare pentru dimensiuni mici, margini și opriri `TREADY=0`.
+4. Construim schema Vivado cu AXI DMA, AXI-Lite, interconectare, ceas și reset.
+5. Verificăm lățimea `TDATA`, `TKEEP`, `TLAST`, `TUSER` și lungimea ieșirii DMA.
+6. Executăm sinteza și implementarea; analizăm resursele LUT/FF/BRAM/DSP și închiderea constrângerilor temporale.
+7. Exportăm **perechea corespunzătoare** `resize_sobel.bit` și `resize_sobel.hwh`.
+8. În PYNQ inspectăm `overlay.ip_dict` și identificăm IP-urile și adresele fără hardcodare.
+9. Validăm numeric imaginile procesate înainte de orice benchmark.
+10. Măsurăm separat DMA+PL, întregul traseu de procesare și aplicația video end-to-end.
 
-**Acceptance criteria:** reproducible processing of 30 consecutive
-frames without stalled DMA, correct output geometry, quantified
-numerical error, and a timing table clearly separating acquisition,
-transfer and processing.
+**Criterii de acceptare propuse:** 30 de cadre consecutive fără blocarea DMA, dimensiuni corecte, erori numerice cuantificate și măsurători reproductibile.
 
-## Hardware experiments once the overlay exists
+## 5. Variante experimentale
 
-| Configuration | Intermediate DDR? | Output |
+| Configurație | Cadru intermediar în DDR? | Stadiu |
 | --- | --- | --- |
-| ARM OpenCV Resize→Sobel | Software-owned arrays | Grayscale Sobel |
-| Hybrid PL Resize + ARM Sobel | **Yes** (return to ARM) | Grayscale Sobel |
-| Sequential PL Resize then PL Sobel | **Yes** (DMA write/read) | Grayscale Sobel |
-| Fused PL Resize→Sobel | **No full-frame intermediate** | Grayscale Sobel |
+| Resize → Sobel integral pe ARM | Buffer software | Executabil |
+| Resize în PL → Sobel pe ARM | Da, prin DMA | Executabil cu Lab5 |
+| Resize în PL → DDR → Sobel în PL | Da | Necesită un nou design |
+| Resize → Sobel conectate direct în PL | Nu, doar buffere locale de linii | Necesită un nou design |
 
-The last two rows require dedicated or reconfigurable hardware; they
-cannot be inferred from measurements using the Lab5 resizer alone.
-DDR payload savings in Lab6.2 are **analytical estimates**, not
-external-memory-controller measurements.
+Reducerea traficului DDR calculată în Lab6.2 este un **model analitic**, nu o măsurătoare a controlerului de memorie.
 
-## Reference designs
+## 6. Proiecte de referință
 
 - PYNQ-HelloWorld: https://github.com/Xilinx/PYNQ-HelloWorld
-- PYNQ Composable Pipeline:
-  https://github.com/Xilinx/PYNQ_Composable_Pipeline
+- PYNQ Composable Pipeline: https://github.com/Xilinx/PYNQ_Composable_Pipeline
 
-The composable overlay provides other stream-connected vision blocks
-and can be studied as an alternative demonstration. It does **not**
-supply this exact Resize→Sobel bitstream ready for the present lab.
+Acestea pot constitui puncte de plecare pentru proiectare, dar nu furnizează direct o pereche validată `resize_sobel.bit` / `resize_sobel.hwh` pentru configurația laboratorului.
