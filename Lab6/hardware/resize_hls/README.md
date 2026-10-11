@@ -30,6 +30,24 @@ Pentru Vitis Vision **2022.2**, apelul `xf::cv::resize<...>` cu
 `MAXDOWNSCALE` drept al optulea parametru șablon este încă valid; nu utilizăm
 semnăturile din ramuri Vitis Vision mai recente.
 
+## Cea mai simplă variantă: lansare automată pe Windows
+
+Din directorul `Lab6/hardware/resize_hls/` de pe **calculatorul cu Vitis HLS
+2022.2 instalat**, executați prin dublu clic
+[`START_CSIM_WINDOWS.bat`](START_CSIM_WINDOWS.bat).
+
+Scriptul verifică disponibilitatea `vitis_hls`, încearcă să găsească
+instalarea în căile Windows standard și, la nevoie, descarcă prin Git doar
+fișierele necesare din Vitis Vision **2022.2**. Apoi rulează **C Simulation**
+și salvează rezultatele în `resize_csim.log`.
+
+**Nu execută automat sinteza sau exportul IP.** Dacă instalarea Vitis se află
+într-o altă locație și nu este în PATH, scriptul solicită pornirea din
+`Vitis HLS 2022.2 Command Prompt`. Un rezultat de tip `OK` la simulare
+trebuie confirmat înainte de pasul următor.
+
+---
+
 ## Pregătire pe PC-ul Windows cu Vitis HLS 2022.2
 
 **Nu rulați scriptul pe PYNQ-Z2.** Sinteza HLS se execută pe calculatorul cu instrumentele AMD/Xilinx.
