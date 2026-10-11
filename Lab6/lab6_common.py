@@ -142,7 +142,9 @@ class ResizerHW:
             self._input.flush()
         self.dma.sendchannel.transfer(self._input)
         self.dma.recvchannel.transfer(self._output)
-        self.accel.write(0x00, 0x81)
+        # 0x01 = ap_start, o singura executie; 0x81 activeaza auto_restart.
+        # Auto-restart poate reutiliza geometria veche intre doua cadre.
+        self.accel.write(0x00, 0x01)
         # Evitam asteptarea nelimitata din DMA.wait() daca un transfer se blocheaza.
         # Timpul de expirare este o protectie didactica, nu o masurare a latentei.
         self._wait_until_idle(self.dma.sendchannel, "MM2S")
