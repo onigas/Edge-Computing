@@ -116,6 +116,11 @@ class ResizerHW:
         """Asteapta finalizarea transferului DMA, dar nu la infinit."""
         start = perf_counter()
         while not channel.idle:
+            if channel.error:
+                raise RuntimeError(
+                    "Canalul DMA {} semnaleaza o eroare. "
+                    "Verificati transferul si reporniti kernelul.".format(label)
+                )
             if perf_counter() - start >= timeout_s:
                 raise TimeoutError(
                     "DMA {} nu a devenit IDLE in {:.1f} s. "
@@ -124,6 +129,9 @@ class ResizerHW:
                     "lungimea transferului si TLAST.".format(label, timeout_s)
                 )
             sleep(0.001)
+        # Apelul este sigur acum: transferul s-a terminat.
+        # Lasam driverul PYNQ sa faca invalidarea si contabilizarea.
+        channel.wait()
 
     def resize(self, frame, target_size):
         if frame.dtype != np.uint8 or frame.ndim != 3:
