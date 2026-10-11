@@ -63,6 +63,9 @@ FPGA throughput.
    (no camera required), local video file, or USB camera.
 5. Do not run two notebooks controlling different overlays at the same time.
 
+For the detailed Vivado/Vitis hardware implementation and validation plan, see
+[Lab6.2 hardware specification](hardware/README.md).
+
 ## Learning outcomes
 
 - Connect functional correctness with numerical error metrics and pipeline
