@@ -1,10 +1,10 @@
-"""Shared utilities for Edge Computing Lab6 (PYNQ 2.7 / PYNQ-Z2).
+"""Functii comune pentru Lab6 pe PYNQ-Z2 (PYNQ 2.7).
 
-CPU-only experiments work outside PYNQ. The hybrid path requires a tested
-PYNQ-HelloWorld resizer bit/hwh pair, reused from Lab5.
+Procesarea CPU functioneaza separat; calea hibrida necesita perechea
+resizer.bit/resizer.hwh din Lab5. Nu se pretinde existenta Sobel in PL.
 """
 from pathlib import Path
-from time import perf_counter
+from time import perf_counter, sleep
 import numpy as np
 import cv2
 
@@ -14,7 +14,7 @@ DEFAULT_IMAGE = LAB_DIR.parent / "Lab4" / "images" / "fruits.jpg"
 
 
 def load_test_image(path=DEFAULT_IMAGE):
-    """Return a BGR uint8 image from Lab4; fail with an actionable message."""
+    """Incarca imaginea BGR uint8 folosita in Lab4."""
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(
@@ -28,7 +28,7 @@ def load_test_image(path=DEFAULT_IMAGE):
 
 
 def sobel_software(gray, border_type=cv2.BORDER_DEFAULT):
-    """Lab4 reference: L2 Sobel magnitude, uint8, same border policy."""
+    """Referinta Sobel L2 din Lab4, cu aceeasi tratare a marginilor."""
     gx = cv2.Sobel(gray, cv2.CV_32F, 1, 0, ksize=3,
                    borderType=border_type)
     gy = cv2.Sobel(gray, cv2.CV_32F, 0, 1, ksize=3,
@@ -37,21 +37,21 @@ def sobel_software(gray, border_type=cv2.BORDER_DEFAULT):
 
 
 def process_cpu(image_bgr, size):
-    """BGR -> bilinear resize -> grayscale -> Sobel, entirely on ARM."""
+    """Resize biliniar, grayscale si Sobel, integral pe ARM."""
     small = cv2.resize(image_bgr, size, interpolation=cv2.INTER_LINEAR)
     gray = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
     return sobel_software(gray)
 
 
 def process_hybrid(image_bgr, size, accelerator):
-    """BGR resize in PL/DMA, then grayscale+Sobel on ARM."""
+    """Resize in PL prin DMA, apoi grayscale si Sobel pe ARM."""
     small = accelerator.resize(image_bgr, size)
     gray = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
     return sobel_software(gray)
 
 
 def locate_resizer():
-    """Only accept a matching bit/hwh pair; never silently download files."""
+    """Cauta doar perechi bit/hwh corecte, fara descarcari implicite."""
     candidates = [
         LAB_DIR / "overlay" / "resizer.bit",
         LAB_DIR.parent / "Lab5" / "overlay" / "resizer.bit",
@@ -75,7 +75,7 @@ def locate_resizer():
 
 
 class ResizerHW:
-    """Single resizer IP/AXI DMA from Lab5; no Sobel acceleration implied."""
+    """Resize IP + AXI DMA din Lab5; fara Sobel accelerat."""
 
     def __init__(self, bitfile=None):
         from pynq import Overlay, allocate
@@ -111,6 +111,20 @@ class ResizerHW:
         regs.dst_cols = dst_width
         self._geometry = geometry
 
+    @staticmethod
+    def _wait_until_idle(channel, label, timeout_s=5.0):
+        """Asteapta finalizarea transferului DMA, dar nu la infinit."""
+        start = perf_counter()
+        while not channel.idle:
+            if perf_counter() - start >= timeout_s:
+                raise TimeoutError(
+                    "DMA {} nu a devenit IDLE in {:.1f} s. "
+                    "Intrerupeti executia si reporniti kernelul Jupyter "
+                    "inainte de o noua incercare; verificati rezolutia, "
+                    "lungimea transferului si TLAST.".format(label, timeout_s)
+                )
+            sleep(0.001)
+
     def resize(self, frame, target_size):
         if frame.dtype != np.uint8 or frame.ndim != 3:
             raise TypeError("Imaginea trebuie sa fie BGR uint8 cu 3 canale.")
@@ -121,8 +135,10 @@ class ResizerHW:
         self.dma.sendchannel.transfer(self._input)
         self.dma.recvchannel.transfer(self._output)
         self.accel.write(0x00, 0x81)
-        self.dma.sendchannel.wait()
-        self.dma.recvchannel.wait()
+        # Evitam asteptarea nelimitata din DMA.wait() daca un transfer se blocheaza.
+        # Timpul de expirare este o protectie didactica, nu o masurare a latentei.
+        self._wait_until_idle(self.dma.sendchannel, "MM2S")
+        self._wait_until_idle(self.dma.recvchannel, "S2MM")
         if hasattr(self._output, "invalidate"):
             self._output.invalidate()
         return np.array(self._output, copy=True)
@@ -140,7 +156,7 @@ class ResizerHW:
 
 
 def measure_callable(fn, repeats=25, warmup=2):
-    """Measure complete sequential function calls; report ms, not kernel-only."""
+    """Masoara apeluri complete, in milisecunde, nu doar nucleul PL."""
     for _ in range(warmup):
         fn()
     times = []
