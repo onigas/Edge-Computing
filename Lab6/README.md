@@ -20,7 +20,7 @@ exercises:
 
 ## Lab6.2 target architecture (not yet available as a verified overlay)
 
-\`\`\`text
+```text
 DDR source frame (BGR)
          |
     AXI DMA MM2S
@@ -34,7 +34,7 @@ DDR source frame (BGR)
     AXI DMA S2MM
          |
 DDR result (grayscale)
-\`\`\`
+```
 
 The data between PL blocks must move through **AXI4-Stream** without an
 intermediate full-frame write/read in DDR. A real hardware experiment requires
