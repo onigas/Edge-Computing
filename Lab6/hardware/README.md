@@ -1,15 +1,15 @@
 # Lab6.2 — Specificația implementării hardware pe PYNQ-Z2
 
-**Stadiu:** document de proiectare. Nu există încă un bitstream validat pentru arhitectura completă.
+**Stadiu (octombrie 2026):** overlay-ul experimental Resize → Grayscale → Sobel a fost generat, iar perechea `Lab6/overlay/resize_sobel.bit` / `resize_sobel.hwh` este publicată. Validarea funcțională pe PYNQ-Z2 rămâne de efectuat și de documentat prin `Lab6.2_FPGA.ipynb` (variantele A, B, C).
 
 Overlay-ul din Lab5 implementează doar Resize. Nu poate fi utilizat drept overlay **Resize → Sobel** fără refacerea și verificarea proiectului FPGA.
 
-## Etapa curentă — pregătirea Resize pentru Vitis 2022.2
+## Etapă istorică — pregătirea Resize pentru Vitis 2022.2
 
 Am pregătit [sursele și testbench-ul Resize](resize_hls/README.md) în
 `Lab6/hardware/resize_hls/`. Prima verificare se face prin **C Simulation**
 în Vitis HLS 2022.2 pe PC, înainte de sinteza IP-ului și înainte de
-integrarea Sobel în Vivado. Fișierele nu sunt încă validate prin sinteză.
+integrarea Sobel în Vivado. Textul acestei secțiuni descrie etapa inițială; între timp a fost generată și publicată o pereche experimentală bit/hwh pentru pipeline-ul complet.
 
 ---
 
@@ -93,7 +93,7 @@ Pentru o comparație numerică riguroasă cu Lab4 și Lab6:
 | --- | --- | --- |
 | Resize → Sobel integral pe ARM | Buffer software | Executabil |
 | Resize în PL → Sobel pe ARM | Da, prin DMA | Executabil cu Lab5 |
-| Resize în PL → DDR → Sobel în PL | Da | Necesită un nou design |
+| Resize în PL → DDR → Sobel în PL | Da | Overlay experimental disponibil; test hardware necesar |
 | Resize → Sobel conectate direct în PL | Nu, doar buffere locale de linii | Necesită un nou design |
 
 Reducerea traficului DDR calculată în Lab6.2 este un **model analitic**, nu o măsurătoare a controlerului de memorie.
