@@ -32,7 +32,7 @@ Imagine BGR în DDR
 Rezultat grayscale în DDR
 ```
 
-Blocurile din PL trebuie conectate direct prin **AXI4-Stream**, fără scrierea imaginii intermediare în DDR. Această arhitectură necesită o **nouă pereche bit/hwh validată**. Overlay-ul `resizer.bit` utilizat în Lab5 nu implementează și Sobel în PL.
+Blocurile din PL trebuie conectate direct prin **AXI4-Stream**, fără scrierea imaginii intermediare în DDR. Pentru această arhitectură este disponibilă acum perechea experimentală `resize_sobel.bit` / `resize_sobel.hwh`, în `Lab6/overlay/`, care necesită validare efectivă pe PYNQ-Z2. Overlay-ul `resizer.bit` utilizat în Lab5 implementează numai Resize.
 
 În Lab6.2 distingem riguros:
 - **model funcțional software:** prelucrare Sobel cu buffere de linii în Python;
@@ -87,4 +87,14 @@ Pentru detalii despre implementarea reală în FPGA consultați [specificația h
 - PYNQ-HelloWorld (accelerator Resize): https://github.com/Xilinx/PYNQ-HelloWorld
 - PYNQ Composable Pipeline (exemple de conexiuni streaming, nu același overlay Resize → Sobel): https://github.com/Xilinx/PYNQ_Composable_Pipeline
 
-**Test hardware real:** [Lab6.2_FPGA.ipynb](Lab6.2_FPGA.ipynb) — validează pe PYNQ-Z2 overlay-ul `resize_sobel.bit` / `resize_sobel.hwh` (test sintetic și benchmark). Acesta este un notebook suplimentar și nu înlocuiește Lab6.2.
+## Experiment FPGA complet — variantele A, B și C
+
+[Lab6.2_FPGA.ipynb](Lab6.2_FPGA.ipynb) conține **trei variante succesive**, utilizând overlay-ul `Lab6/overlay/resize_sobel.bit` + `resize_sobel.hwh`:
+
+- **A — test sintetic** și benchmark inițial pentru validarea DMA/PL.
+- **B — fișiere JPG/PNG:** implicit imaginea `../Lab4/images/fruits.jpg`; imagini suplimentare în `Lab6/images/`. Compară OpenCV ARM și FPGA, MAE, diferențe și timpi.
+- **C — video:** alegeți în notebook `MODE="file"` și puneți `video.mp4` în Lab6; alternativ `MODE="camera"` pentru webcam USB. Raportează timpul citirii, normalizării, procesării, deciziei, FPS-ul buclei; poate salva `Lab6.2C_FPGA_output.avi`.
+
+**Ordine obligatorie:** inițializare overlay → test A → B → C. În caz de timeout DMA, reporniți kernelul Jupyter. Rezultatele hardware trebuie măsurate efectiv pe PYNQ-Z2; existența fișierelor nu demonstrează validarea lor funcțională.
+
+Lab6.3 rămâne experimentul anterior, cu Resize în PL și Sobel pe ARM, util ca termen de comparație.
