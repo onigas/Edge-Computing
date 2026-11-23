@@ -192,7 +192,7 @@ După această etapă introductivă, activitatea continuă printr-un **proiect i
 
 ➡️ **[Proiecte individuale Kria — teme pe Ubuntu cu overlay-uri gata compilate, cerințe și evaluare](./Proiecte/README.md)**
 
-Fiecare student reproduce unul dintre exemplele sau proiectele selectate și implementează extensia asociată. Lista cuprinde **17 teme: 9 Hackster.io, 6 PYNQ Bootcamp și 2 din alte repository-uri GitHub**, pentru KR260/KV260 conform fiecărei teme. Exemplele software Computer Vision și Board-to-Board Communication pot utiliza și PYNQ-Z2 fără overlay nou. Se utilizează imaginea **Ubuntu Kria existentă** și numai **overlay-uri gata compilate**; bibliotecile și aplicațiile se pot instala fără înlocuirea imaginii.
+Fiecare student reproduce unul dintre exemplele sau proiectele selectate și implementează extensia asociată. Lista cuprinde **16 teme: 8 Hackster.io, 6 PYNQ Bootcamp și 2 din alte repository-uri GitHub**, pentru KR260/KV260 conform fiecărei teme. Exemplele software Computer Vision și Board-to-Board Communication pot utiliza și PYNQ-Z2 fără overlay nou. Se utilizează imaginea **Ubuntu Kria existentă** și numai **overlay-uri gata compilate**; bibliotecile și aplicațiile se pot instala fără înlocuirea imaginii.
 
 Durata este de **4 săptămâni × 4 ore (16 ore)**, cu **prezentările și evaluarea incluse în săptămâna 4**. Pagina proiectelor conține echipamentele necesare, condițiile de pregătire, livrabilele, calendarul și o coloană „Student” lăsată liberă pentru repartizare.
 
