@@ -4,15 +4,17 @@
 
 ## Obiectiv și organizare
 
-Fiecare student reproduce **un proiect original din lista de mai jos**, pe placa Kria indicată, apoi implementează **extensia obligatorie** asociată. Lista păstrează cele 20 de proiecte selectate: **1–19 pe KR260, 20 pe KV260**. Lucrul și evaluarea sunt individuale; coloana „Student” rămâne liberă pentru repartizare.
+Fiecare student reproduce **un proiect original din lista de mai jos**, pe placa Kria indicată, apoi implementează **extensia obligatorie** asociată. Lista conține **9 proiecte pentru KR260**, selectate din lista inițială pentru utilizarea imaginii Ubuntu existente și a overlay-urilor gata compilate. Numerele originale sunt păstrate. Lucrul și evaluarea sunt individuale; coloana „Student” rămâne liberă pentru repartizare.
 
 **Durata: 4 săptămâni × 4 ore = 16 ore, inclusiv prezentările din săptămâna 4.** Primele trei sesiuni oferă 12 ore pentru reproducere, extensie și verificare. Nu se presupune o a cincea sesiune și nici muncă obligatorie suplimentară acasă.
 
 ## Condiții înainte de repartizare
 
-Proiectul original trebuie să fi fost pornit cu succes pe placa disponibilă înainte de repartizare. Nu se cere reconstruirea integrală a PetaLinux, a platformei FPGA sau a DPU de la zero în timpul celor patru sesiuni.
+**Se păstrează imaginea Ubuntu Kria instalată pe plăci.** Se pot instala bibliotecile, aplicațiile și containerele necesare și se pot încărca **numai overlay-uri deja compilate pentru KR260**. Nu se construiesc overlay-uri în Vivado/Vitis/HLS și nu se instalează PetaLinux, Yocto sau o imagine Ubuntu personalizată în locul celei existente. Extensiile se realizează în software, fără modificarea hardware-ului FPGA.
 
-Echipament comun: placa **KR260** (temele 1–19) sau **KV260** (tema 20), alimentator compatibil, card microSD cu imaginea pregătită, PC pentru acces la placă, cabluri de rețea/USB necesare și conexiune la rețea. „Fără periferice” în tabel înseamnă fără periferice suplimentare față de acest echipament comun. Se verifică înainte și accesul la conturile, datele și pachetele software necesare.
+Versiunea Ubuntu, bibliotecile PYNQ/VART/XRT și modelele trebuie să fie compatibile cu pachetul precompilat ales. Verificarea documentației și a fișierelor publicate nu înlocuiește proba pe plăcile laboratorului. Dacă un pachet nu funcționează pe imaginea existentă, se alege altă temă din listă, fără reconstruirea overlay-ului sau înlocuirea imaginii.
+
+Echipament comun: placa **KR260**, alimentator compatibil, card microSD cu imaginea Ubuntu existentă, PC pentru acces la placă, cabluri de rețea/USB necesare și conexiune la rețea. „Fără periferice” în tabel înseamnă fără periferice suplimentare față de acest echipament comun. Se verifică înainte și accesul la conturile, datele și pachetele software necesare.
 
 Plăcile și perifericele partajate se programează pe intervale de utilizare. Codul, analiza și documentarea se pot pregăti pe PC în timpul aceleiași sesiuni; demonstrația și măsurătorile cerute se execută pe Kria. Repartizarea depinde de disponibilitatea efectivă a echipamentelor și a mediului validat.
 
@@ -22,14 +24,7 @@ Plăcile și perifericele partajate se programează pe intervale de utilizare. C
 
 | Nr. | Proiect original Hackster.io și descriere | Extensia obligatorie | Echipament suplimentar / mediu necesar | Student |
 |---|---|---|---|---|
-| 1 | **[Vivado LED Control via PYNQ](https://www.hackster.io/wstanislaus/vivado-led-control-via-pynq-on-kr260-e391cf)** — comanda LED-urilor KR260 din Python | Interfață web simplă pentru selectarea a trei moduri de semnalizare LED | Fără periferice<br>**Realizabil și pe PYNQ-Z2**, cu adaptarea GPIO și a overlay-ului. | |
-| 2 | **[PetaLinux GPIO Tutorial](https://www.hackster.io/LogicTronix/kria-kr260-petalinux-2022-2-gpio-tutorial-9b14bf)** — control GPIO din Linux | Aplicație Linux cu secvențe LED programabile și configurare prin argumente | Fără periferice<br>**Realizabil și pe PYNQ-Z2** pentru aplicația GPIO și extensie, cu adaptarea accesului GPIO; fluxul PetaLinux original necesită portare separată. | |
-| 3 | **[FreeRTOS APU–RPU IPI](https://www.hackster.io/wstanislaus/freertos-led-control-kr260-apu-rpu-ipi-communication-2a35f6)** — comunicație între ARM A53 și R5 | Transmiterea unei comenzi numerice APU→RPU pentru modificarea perioadei LED, cu măsurarea timpului de răspuns | Fără periferice  | |
-| 4 | **[MicroBlaze V + BMP180](https://www.hackster.io/LogicTronix/microblaze-v-on-kr260-with-bmp180-sensor-and-vitis-2025-1-35315c)** — citirea senzorului I²C pe RISC-V soft-core | Medierea a 10 măsurători și avertizare când temperatura depășește un prag | BMP180  | |
-| 5 | **[Control PWM DC Motor from PYNQ](https://www.hackster.io/iotengineer22/control-pwm-dc-motor-from-pynq-and-kr260-bb0296)** — comandă PWM a unui motor | Implementarea unei rampe de pornire și oprire (*soft-start/soft-stop*) | Motor DC, driver, alimentare<br>**Realizabil și pe PYNQ-Z2**, cu adaptarea PWM și a pinilor. | |
-| 6 | **[Driving Motors with Encoders](https://www.hackster.io/whitney-knitter/driving-motors-with-encoders-on-the-kria-kr260-ffb663)** — comandă motor și citire encoder | Menținerea unei turații impuse folosind un regulator proporțional simplu | Pmod HB3, motor N20 cu encoder<br>**Realizabil și pe PYNQ-Z2**, cu adaptarea și validarea PWM și a citirii encoderului. | |
-| 7 | **[Sense HAT LED Matrix – Part II](https://www.hackster.io/LogicTronix/kria-kr260-rpi-sensehat-ledmatrix-on-petalinux-part-ii-d4c4e0)** — comandă matrice LED 8×8 | Afișarea grafică a temperaturii pe matrice, cu schimbarea culorii la prag | Raspberry Pi Sense HAT  | |
-| 8 | **[Jumpstart KR260 with Sense HAT](https://www.hackster.io/LogicTronix/jumpstart-the-kr260-with-raspberry-pi-sensehat-petalinux-308dc5)** — senzori, LED-uri, joystick | Data logger pentru temperatură, umiditate și presiune, cu salvare CSV și statistici | Raspberry Pi Sense HAT  | |
+| 5 | **[Control PWM DC Motor from PYNQ](https://www.hackster.io/iotengineer22/control-pwm-dc-motor-from-pynq-and-kr260-bb0296)** — comandă PWM a unui motor | Implementarea unei rampe de pornire și oprire (*soft-start/soft-stop*) | Motor DC, driver, alimentare | |
 
 ### B. Edge AI și procesare video pe Kria
 
@@ -40,28 +35,21 @@ Plăcile și perifericele partajate se programează pe intervale de utilizare. C
 | 11 | **[Object Detection with YOLOX + PYNQ](https://www.hackster.io/iotengineer22/object-detection-with-yolox-pynq-and-kr260-13d32f)** — detecție accelerată pe DPU | Înregistrarea într-un fișier CSV a obiectelor detectate, cu clasă, scor și timestamp | DPU/model pregătit; imagini de test, fără cameră obligatorie  | |
 | 12 | **[Object Detection from a Webcam](https://www.hackster.io/iotengineer22/object-detection-with-kr260-from-a-webcam-85c261)** — detecție YOLOX în timp real | Salvarea automată a unei imagini atunci când apare o clasă selectată, cu limitarea alarmelor repetate | Cameră USB și DPU pregătit  | |
 | 13 | **[Benchmark Architectures of the DPU](https://www.hackster.io/iotengineer22/benchmark-architectures-of-the-dpu-with-kr260-699f19)** — evaluarea configurațiilor DPU | Extinderea benchmarkului cu P50/P95 pentru latență, pe minimum trei configurații disponibile | Fără periferice; cel puțin 3 configurații DPU pregătite  | |
-| 14 | **[Vitis AI ONNX Runtime Engine](https://www.hackster.io/iotengineer22/vitis-ai-onnx-runtime-engine-voe-with-kr260-python-0d02c3)** — inferență ONNX pe CPU și DPU | Benchmark pe 30 de imagini: latență medie, P95 și verificarea concordanței predicțiilor CPU/DPU | Fără periferice; runtime și modele pregătite  | |
 | 15 | **[Super Resolution Networks on KR260](https://www.hackster.io/beyond-the-game/deploy-the-super-resolution-networks-in-kr260-kit-0fe9c8)** — reconstruirea imaginilor folosind SRCNN/RDN | Comparație cu interpolarea bicubică, folosind PSNR, SSIM și timpul de execuție | Modele compilate și set de imagini  | |
 | 16 | **[Forest Fire Prevention](https://www.hackster.io/takoeunice19/forest-fire-prevention-f5212c)** — clasificarea imaginilor cu incendii | Testarea pe imagini suplimentare cu și fără foc și generarea unei alarme la depășirea unui prag | Modelul CNN și date de test pregătite  | |
-| 17 | **[WildSight AI](https://www.hackster.io/matjaz4/wildsight-ai-real-time-human-wildlife-conflict-detection-ff65fa)** — detectarea persoanelor și animalelor cu MegaDetector | Jurnalizarea evenimentelor cu om și animal detectați simultan, cu salvarea unui cadru relevant | Cameră USB/IP; imagine Docker și model pregătite  | |
 | 18 | **[EagleEye AI](https://www.hackster.io/matjaz4/eagleeye-ai-smart-following-camera-with-face-recognition-1b0f65)** — urmărirea feței cu ROS2 | Adăugarea unei zone moarte centrale pentru comanda pan-tilt, reducând oscilațiile | Cameră IP; mecanism pan-tilt/RS-485 pentru demonstrația fizică, sau verificarea comenzilor ROS2 fără motoare  | |
 
-### C. Procesare de semnal și accelerare FPGA
+### Pachete de utilizat și precizări
 
-| Nr. | Proiect original Hackster.io și descriere | Extensia obligatorie | Echipament suplimentar / mediu necesar | Student |
-|---|---|---|---|---|
-| 19 | **[Slaying the DMA Dragon on KR260](https://www.hackster.io/yuricauwerts/slaying-the-dma-dragon-on-the-kria-kr260-a5046e)** — modul Linux și transfer DMA pentru audio | Calculul și afișarea nivelului RMS pentru blocuri audio transmise prin DMA | Pmod I2S2; driver și proiect FPGA pregătite  | |
-| 20 | **[FPGA FIR Filter – HLS/PYNQ pe KV260](https://www.hackster.io/michi_michi/fpga-fir-filter-hls-kria-kv260-pynq-2eec35)** — filtru FIR hardware cu date float/fixed-point | Modificarea coeficienților filtrului și compararea erorii numerice și a timpului de procesare | KV260, fără senzori; proiect HLS și overlay pregătite<br>**Realizabil și pe PYNQ-Z2**, cu regenerarea și validarea overlay-ului HLS/DMA pentru Zynq-7020. | |
-
-### Precizări pentru alegerea temei
-
-- Temele 7 și 8 folosesc același HAT, dar au obiective diferite: afișare, respectiv achiziție și înregistrare.
-- La tema 11, configurația originală include camera RICOH THETA V. Varianta cu imagini pregătite reproduce partea de inferență și extensia CSV; această limitare trebuie menționată în raport.
-- Tema 13 necesită cel puțin trei configurații DPU deja disponibile și validate; compilarea lor nu intră în timpul studentului.
-- Temele 15–19 necesită pregătire atentă și se repartizează numai cu mediul funcțional și echipamentele confirmate. La tema 15 sunt necesare modelele compilate; la tema 16 trebuie confirmată disponibilitatea codului și a modelului CNN executabil. Lista nu certifică faptul că aceste pachete sunt deja disponibile în laborator.
-- La tema 18 se poate evalua comanda ROS2 fără motoare, conform variantei selectate; aceasta nu echivalează cu demonstrarea urmăririi fizice pan-tilt. Varianta se stabilește de la început.
-- Tema 19 presupune integrare DMA și driver Linux pregătite. Tema 20 se execută pe KV260, fără portare obligatorie pe KR260.
-- Dacă o condiție nu este îndeplinită, se alege o altă temă disponibilă **din aceeași listă**, înainte de repartizare.
+- **Tema 5:** se descarcă fișierele `.bit`, `.hwh` și notebook-ul din [pachetul PWM al autorului](https://github.com/iotengineer22/AMD-Pervasive-AI-Developer-Contest/tree/main/jupyter_notebooks/pynq-pwm). Se omit etapele de construire Vivado din articol. Extensia modifică secvența comenzilor PWM în Python.
+- **Temele 9 și 10:** aplicații Edge Impulse pe Ubuntu, fără overlay FPGA propriu. Se instalează bibliotecile necesare; antrenarea/exportul modelului nu reprezintă construire de overlay. La tema 10 se raportează și rata efectiv realizată, nu doar rata solicitată.
+- **Tema 11:** se folosesc overlay-ul și modelul din [pachetul YOLOX](https://github.com/iotengineer22/AMD-Pervasive-AI-Developer-Contest/tree/main/src/yolox-test). Configurația originală include camera RICOH THETA V; varianta cu imagini pregătite reproduce inferența și extensia CSV, iar limitarea se menționează în raport.
+- **Tema 12:** se folosesc fișierele `.bit`, `.hwh`, `.xclbin`, modelul și codul din [pachetul pentru cameră USB](https://github.com/iotengineer22/AMD-Pervasive-AI-Developer-Contest/tree/main/src/usb-camera).
+- **Tema 13:** [pachetul benchmark](https://github.com/iotengineer22/AMD-Pervasive-AI-Developer-Contest/tree/main/jupyter_notebooks/pynq-benchmark) include configurații DPU și modele deja compilate. Se aleg minimum trei pachete complete și compatibile; nu se sintetizează alte configurații.
+- **Tema 15:** se reutilizează overlay-ul DPU precompilat din mediul [Kria-RoboticsAI](https://github.com/amd/Kria-RoboticsAI), utilizat de autor, fără modificarea arhitecturii DPU. Modelele SRCNN/RDN trebuie să corespundă acestuia. Tema rămâne condiționată de disponibilitatea modelelor executabile și a bibliotecilor compatibile cu Ubuntu existent; extensia compară rezultatele în software.
+- **Tema 16:** exemplul autorului folosește inferență CNN pe CPU în Ubuntu, fără overlay FPGA propriu. Sunt necesare bibliotecile Python și greutățile modelului. Disponibilitatea unui model gata de executat trebuie confirmată înainte de repartizare; articolul include cod de antrenare și testare, dar nu certifică existența modelului în laborator.
+- **Tema 18:** se instalează [pachetul firmware precompilat](https://github.com/s59mz/eagle-eye-ai/tree/main/fpga-firmware) și aplicația Docker/ROS2 din repository-ul autorului, pe Ubuntu existent. Nu se parcurge reconstruirea hardware-ului din tutorial. Se poate verifica topicul ROS2 al comenzilor fără motoare; aceasta nu echivalează cu demonstrarea urmăririi fizice pan-tilt.
+- Mențiunile anterioare privind portarea pe PYNQ-Z2 au fost retrase: ele presupuneau adaptarea sau regenerarea overlay-urilor, care nu intră în această selecție.
 
 ## Cerințe generale
 
