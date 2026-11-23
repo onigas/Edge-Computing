@@ -184,38 +184,17 @@ Primele laboratoare Kria vor introduce:
 - percepție accelerată;
 - integrarea acceleratoarelor hardware într-un sistem robotic.
 
-După această etapă introductivă, activitatea va continua sub forma unui **proiect integrator**.
+După această etapă introductivă, activitatea continuă printr-un **proiect individual pe Kria**.
 
 ---
 
-## Direcția proiectului
+## Proiecte
 
-Proiectul va combina:
+➡️ **[Proiecte individuale Kria — lista celor 20 de teme, cerințe și evaluare](./Proiecte/README.md)**
 
-```text
-Senzori / Cameră / LiDAR
-          ↓
-      Percepție
-          ↓
-  Procesare / Edge AI
-          ↓
-       ROS 2
-          ↓
-      Decizie
-          ↓
- Control robotic
-```
+Fiecare student reproduce unul dintre proiectele originale Hackster.io selectate și implementează extensia asociată. Temele 1–19 folosesc **KR260**, iar tema 20 folosește **KV260**.
 
-O direcție posibilă este dezvoltarea unui **robot mobil autonom pentru medii indoor**, cum ar fi o magazie, un spital sau un laborator.
-
-Obiectivul proiectului este integrarea într-un singur sistem a conceptelor studiate anterior:
-
-- achiziție senzorială;
-- procesare în timp real;
-- accelerare hardware;
-- inferență AI;
-- ROS 2;
-- control și decizie robotică.
+Durata este de **4 săptămâni × 4 ore (16 ore)**, cu **prezentările și evaluarea incluse în săptămâna 4**. Pagina proiectelor conține echipamentele necesare, condițiile de pregătire, livrabilele, calendarul și o coloană „Student” lăsată liberă pentru repartizare.
 
 ---
 
