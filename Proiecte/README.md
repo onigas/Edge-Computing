@@ -10,7 +10,7 @@ Fiecare student reproduce **un proiect original din lista de mai jos**, pe placa
 
 ## Condiții înainte de repartizare
 
-Pentru încadrarea în timp, cadrul didactic pregătește și verifică în prealabil imaginile Linux, versiunile uneltelor, overlay-urile/bitstream-urile, driverele, modelele compilate și perifericele cerute de fiecare temă. Proiectul original trebuie să fi fost pornit cu succes pe placa disponibilă înainte de repartizare. Nu se cere reconstruirea integrală a PetaLinux, a platformei FPGA sau a DPU de la zero în timpul celor patru sesiuni.
+Plăcile au deja imaginile Kria instalate. Proiectul original trebuie să fi fost pornit cu succes pe placa disponibilă înainte de repartizare. Nu se cere reconstruirea integrală a PetaLinux, a platformei FPGA sau a DPU de la zero în timpul celor patru sesiuni.
 
 Echipament comun: placa **KR260** (temele 1–19) sau **KV260** (tema 20), alimentator compatibil, card microSD cu imaginea pregătită, PC pentru acces la placă, cabluri de rețea/USB necesare și conexiune la rețea. „Fără periferice” în tabel înseamnă fără periferice suplimentare față de acest echipament comun. Se verifică înainte și accesul la conturile, datele și pachetele software necesare.
 
