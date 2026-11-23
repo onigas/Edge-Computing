@@ -190,9 +190,9 @@ După această etapă introductivă, activitatea continuă printr-un **proiect i
 
 ## Proiecte
 
-➡️ **[Proiecte individuale Kria — lista celor 20 de teme, cerințe și evaluare](./Proiecte/README.md)**
+➡️ **[Proiecte individuale Kria — teme pe Ubuntu cu overlay-uri gata compilate, cerințe și evaluare](./Proiecte/README.md)**
 
-Fiecare student reproduce unul dintre proiectele originale Hackster.io selectate și implementează extensia asociată. Temele 1–19 folosesc **KR260**, iar tema 20 folosește **KV260**.
+Fiecare student reproduce unul dintre proiectele originale Hackster.io selectate și implementează extensia asociată. Lista cuprinde **9 teme pentru KR260**, cu numerotarea originală păstrată. Se utilizează imaginea **Ubuntu Kria existentă** și numai **overlay-uri gata compilate**; bibliotecile și aplicațiile se pot instala fără înlocuirea imaginii.
 
 Durata este de **4 săptămâni × 4 ore (16 ore)**, cu **prezentările și evaluarea incluse în săptămâna 4**. Pagina proiectelor conține echipamentele necesare, condițiile de pregătire, livrabilele, calendarul și o coloană „Student” lăsată liberă pentru repartizare.
 
